@@ -2,8 +2,9 @@
 require("dotenv").config();
 
 // Import necessary Electron modules
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const ipc = ipcMain;
 
 // Function that creates the main application window
 function createWindow() {
@@ -22,18 +23,18 @@ function createWindow() {
     // Window behavior settings
     closable: true, // Allow window to be closed by user
     darkTheme: true, // Use dark theme for window decorations
-    frame: true, // Show window frame with title bar and controls
+    frame: false, // Hide window frame with title bar and controls
 
     // Application icon displayed in taskbar and window
     icon: path.join(__dirname, "./assets/img/budget.ico"),
 
     // Web security and integration preferences
     webPreferences: {
-      // Disable Node.js integration in renderer for security
-      nodeIntegration: false,
+      // Enable Node.js integration in renderer for security
+      nodeIntegration: true,
 
-      // Enable context isolation
-      contextIsolation: true,
+      // Disable context isolation
+      contextIsolation: false,
 
       // Enable developer tools for debugging
       devTools: isDev,
@@ -50,6 +51,26 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools();
   }
+
+  //IPC function
+
+  //Top Menu
+
+  ipc.on("reduceApp", (event) => {
+    win.minimize();
+  });
+
+  ipc.on("sizeApp", (event) => {
+    if (win.isMaximized()) {
+      win.restore();
+    } else {
+      win.maximize();
+    }
+  });
+
+  ipc.on("closeApp", (event) => {
+    win.close();
+  });
 }
 
 // Event triggered when Electron has finished initializing

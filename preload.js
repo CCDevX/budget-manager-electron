@@ -1,12 +1,12 @@
-const { contextBridge } = require("electron");
-
-contextBridge.exposeInMainWorld("electronAPI", {
-  versions: {
-    chrome: process.versions.chrome,
-    node: process.versions.node,
-    electron: process.versions.electron,
-  },
-});
+// const { contextBridge } = require("electron");
+//
+// contextBridge.exposeInMainWorld("electronAPI", {
+//   versions: {
+//     chrome: process.versions.chrome,
+//     node: process.versions.node,
+//     electron: process.versions.electron,
+//   },
+// });
 
 window.addEventListener("DOMContentLoaded", (event) => {
   const replaceText = (selector, text) => {

@@ -21,6 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="css/custom.css" rel="stylesheet" />
   </head>
 
   <body id="page-top">
@@ -92,6 +93,7 @@
           <!-- Topbar -->
           <nav
             class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+            id="topMenu"
           >
             <!-- Sidebar Toggle (Topbar) -->
             <button
@@ -101,7 +103,18 @@
               <i class="fa fa-bars"></i>
             </button>
 
-
+            <!-- TopMenu actions btns  -->
+            <ul class="nav" id="topMenuBtns">
+                <li>
+                  <button id="reduceBtn" class="topMenuBtn">&#95;</button>
+                </li>
+              <li>
+                  <button id="sizeBtn" class="topMenuBtn">&#x1F5D6;</button>
+                </li>
+              <li>
+                <button id="closeBtn" class="topMenuBtn">&#215;</button>
+              </li>
+            </ul>
 
           </nav>
           <!-- End of Topbar -->
@@ -133,7 +146,10 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
+    <!-- Fix jQuery -->
+    <script>
+      window.$ = window.jQuery = require('./vendor/jquery/jquery.min.js');
+    </script>
        <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -144,18 +160,15 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
+    <script src="./js/app.js"></script>
+    <!--
     <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-
-    <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+      -->
+
   </body>
 </html>
