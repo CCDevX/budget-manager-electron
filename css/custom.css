@@ -1,18 +1,35 @@
-#topMenuBtns{
-    position:absolute;
+#topMenuBtns {
+    position: absolute;
     right: 20px;
 }
 
-.topMenuBtn{
-    border:none;
-    outline:none;
+.topMenuBtn {
+    border: none;
+    outline: none;
     background: transparent;
     margin: 0 5px;
     color: #4e73df;
-    -webkit-app-region:no-drag;
+    -webkit-app-region: no-drag;
 }
 
-#topMenu{
-    -webkit-user-select:none;
-    -webkit-app-region:drag;
+#topMenu {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
 }
+
+.pull-right {
+    float: right;
+}
+
+.mr {
+    margin-right: 15px;
+}
+.ml {
+    margin-left: 15px;
+}
+
+#dateSelector {
+    text-align: center;
+}
+
+

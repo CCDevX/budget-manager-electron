@@ -5,6 +5,9 @@ require("dotenv").config();
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const ipc = ipcMain;
+const DataStore = require("nedb");
+const fs = require("fs");
+const { shell } = require("electron");
 
 // Function that creates the main application window
 function createWindow() {
@@ -70,6 +73,56 @@ function createWindow() {
 
   ipc.on("closeApp", (event) => {
     win.close();
+  });
+
+  ipc.on("reload", (event) => {
+    win.reload();
+  });
+
+  ipc.on("exportPdf", () => {
+    console.log("*** EXPORT PDF");
+    // Chemin d'export
+    var filepath = path.join(__dirname, "./export.pdf");
+    // Options du PDF
+    var options = {
+      marginsType: 1,
+      pageSize: "A4",
+      printBackground: true,
+      printSelectionOnly: false,
+      landscape: false,
+    };
+    // Réaliser l'export + Manipuler le fichier
+    win.webContents
+      .printToPDF(options)
+      .then((data) => {
+        fs.writeFile(filepath, data, function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("PDF Generated Successfully");
+            // win.loadURL(filepath);
+            shell.showItemInFolder(filepath);
+            shell.openPath(filepath);
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
+  //DB function
+  const db = new DataStore({ filename: "data.db", autoload: true });
+  ipc.on("addLigneToDb", (event, data) => {
+    db.insert(data, (err, newRec) => {
+      if (err !== null) {
+        console.log(err);
+      }
+
+      console.log("Adding Ligne to Db", newRec);
+
+      win.reload();
+    });
   });
 }
 
